@@ -39,6 +39,10 @@ class Patient:
 
 def patient_normalise(data):
     """Normalise patient data from a 2D inflammation data array."""
-    max_val = np.max(data, axis=1)
-    return data / max_val[:, np.newaxis]
+    data = np.asarray(data, dtype=float)
 
+    max_val = np.max(np.absolute(data), axis=1, keepdims=True)
+
+    return np.divide(data,
+                     max_val,
+                     where=np.logical_not(np.isclose(max_val, 0)))
