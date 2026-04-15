@@ -36,3 +36,9 @@ class Patient:
     """A patient with a name."""
     def __init__(self, name):
         self.name = name
+
+def patient_normalise(data):
+    """Normalise patient data from a 2D inflammation data array."""
+    max_val = np.max(data, axis=1)
+    return data / max_val[:, np.newaxis]
+
